@@ -2,7 +2,7 @@
   //start session
   session_start();
   
-  define('SITEURL', 'http://localhost/food-order/'); //create a constant to store the url
+  define('SITEURL', 'http://localhost/food-order-basic/'); //create a constant to store the url
   define('LOCALHOST', 'localhost');
   define('DB_USERNAME', 'root');
   define('DB_PASSWORD', '');
