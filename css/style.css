@@ -275,3 +275,28 @@ fieldset{
         width: 100%;
     }
 }
+
+.pagination{
+    margin: 2% 0;
+}
+ul.pagination{
+    list-style-type: none;
+}
+ul.pagination li{
+    display: inline;
+    padding: 1%;
+}
+ul.pagination li.active{
+    background-color: #ff6b81;
+    color: white;
+    border-radius: 5px;
+}
+ul.pagination li a{
+    color: #ff6b81;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+ul.pagination li a:hover{
+    color: #ff4757;
+}

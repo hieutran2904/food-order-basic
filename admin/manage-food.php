@@ -13,30 +13,71 @@
       echo $_SESSION['delete'];
       unset($_SESSION['delete']);
     }
-    if(isset($_SESSION['remove'])){
+    if (isset($_SESSION['remove'])) {
       echo $_SESSION['remove'];
       unset($_SESSION['remove']);
     }
-    if(isset($_SESSION['unauthorize'])){
+    if (isset($_SESSION['unauthorize'])) {
       echo $_SESSION['unauthorize'];
       unset($_SESSION['unauthorize']);
     }
-    if(isset($_SESSION['no-food-found'])){
+    if (isset($_SESSION['no-food-found'])) {
       echo $_SESSION['no-food-found'];
       unset($_SESSION['no-food-found']);
     }
-    if(isset($_SESSION['update'])){
+    if (isset($_SESSION['update'])) {
       echo $_SESSION['update'];
       unset($_SESSION['update']);
     }
-    if(isset($_SESSION['failed-remove'])){
+    if (isset($_SESSION['failed-remove'])) {
       echo $_SESSION['failed-remove'];
       unset($_SESSION['failed-remove']);
     }
-    if(isset($_SESSION['upload'])){
+    if (isset($_SESSION['upload'])) {
       echo $_SESSION['upload'];
       unset($_SESSION['upload']);
     }
+    ?>
+    <?php
+    // Tổng số bản ghi trong cơ sở dữ liệu
+    $sql = "SELECT * FROM tbl_food";
+    $res = mysqli_query($conn, $sql);
+    $count = mysqli_num_rows($res);
+
+    // Số bản ghi hiển thị trên mỗi trang
+    $recordsPerPage = 6;
+
+    // Tính tổng số trang
+    $totalPages = ceil($count / $recordsPerPage);
+
+    // Xác định trang hiện tại
+    if (isset($_GET['page']) && $_GET['page'] > 0 && $_GET['page'] <= $totalPages) {
+      $currentPage = $_GET['page'];
+    } else {
+      $currentPage = 1;
+    }
+
+    // Tính vị trí của bản ghi đầu tiên trên trang hiện tại
+    $start = ($currentPage - 1) * $recordsPerPage;
+
+    // Hiển thị các nút phân trang
+    echo '<ul class="pagination">';
+    if ($totalPages > 1) {
+      if ($currentPage > 1) {
+        echo '<li><a href="?page=' . ($currentPage - 1) . '">Prev</a></li>';
+      }
+      for ($i = 1; $i <= $totalPages; $i++) {
+        if ($i == $currentPage) {
+          echo '<li class="active"><span>' . $i . '</span></li>';
+        } else {
+          echo '<li><a href="?page=' . $i . '">' . $i . '</a></li>';
+        }
+      }
+      if ($currentPage < $totalPages) {
+        echo '<li><a href="?page=' . ($currentPage + 1) . '">Next</a></li>';
+      }
+    }
+    echo '</ul>';
     ?>
     <a href="<?php echo SITEURL; ?>admin/add-food.php" class="btn-primary">Add Food</a><br><br>
     <table class="tbl-full">
@@ -52,7 +93,7 @@
         <th>Actions</th>
       </tr>
       <?php
-      $sql = "SELECT * FROM tbl_food";
+      $sql = "SELECT * FROM tbl_food ORDER BY id DESC LIMIT $start, $recordsPerPage";
       $res = mysqli_query($conn, $sql);
       $count = mysqli_num_rows($res);
       $sn = 1;
