@@ -1,4 +1,4 @@
-# web food-order-basic (php, mysql, html, css thuần - cùi bắp :) 
+# web food-order-basic (php, mysql, html, css thuần)
 - b1: copy folder food-order-basic vào trong htdocs
 - b2: mở trình duyệt gõ localhost/food-order-basic
 - b3: mở trình duyệt gõ localhost/phpmyadmin
